@@ -18,15 +18,50 @@
                 font-size: 3.5rem;
             }
         }
+
+        .jumbotron {
+        {#background-image: url("{% static 'tutors/images/pexels-julia-m-cameron-4145153.jpg' %}");#}
+        {#background-size: cover;#}
+            position: relative;
+            overflow: hidden;
+            background-color:white;
+        }
+        .jumbotron video {
+            position: absolute;
+            z-index: 1;
+            top: 0px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            {#opacity:0.2;#}
+        }
+        .jumbotron .container {
+          z-index: 2;
+          position: relative;
+        }
     </style>
 
 
     <main role="main">
 
-        <section class="jumbotron text-center">
+        <section class="jumbotron jumbotron-fluid text-center">
+            <video id="landing-video" autoplay=""  muted="">
+                <source src="https://ak.picdn.net/shutterstock/videos/1015302514/preview/stock-footage-digitally-generated-video-of-education-concept.webm" type="video/webm"><source src="https://ak.picdn.net/shutterstock/videos/1015302514/preview/stock-footage-digitally-generated-video-of-education-concept.mp4" type="video/mp4">
+            </video>
+
+            <script>
+                let video = document.getElementById("landing-video");
+                video.addEventListener("timeupdate", function(){
+                    if(this.currentTime >= 3) {
+                        this.pause();
+                    }
+                });
+            </script>
+
             <div class="container">
-                <h1>Teaching Your Child To Be Bilingual</h1>
-                <p class="lead text-muted">Every bilingual child is unique. Learning two languages depends on the amount and type of practice your child gets.</p>
+                <h1 class="text-light">Teaching Your Child To Be Bilingual</h1>
+                <p class="text-light lead ">Every bilingual child is unique. Learning two languages depends on the amount and type of practice your child gets.</p>
                 <p>
                     <a href="{% url 'tutors:tutors_list' %}" class="btn btn-primary my-2">Find a Tutor</a>
                     <a href="{% url 'tutors:register_tutor' %}" class="btn btn-secondary my-2">Become a Tutor</a>
