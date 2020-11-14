@@ -1,0 +1,32 @@
+{% extends 'tutors/base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head_mixin %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Tutor profile</h1>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-12">
+                <form action="{% url 'tutors:tutor_profile' %}" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" class="btn btn-success" value="Save">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body_mixin %}
+{% endblock %}
+

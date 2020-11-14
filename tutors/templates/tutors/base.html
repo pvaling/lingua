@@ -22,6 +22,10 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/album/">
 
     <link rel="stylesheet" href="{% static 'css/album.css' %}">
+    <script src="https://kit.fontawesome.com/cf0cd60583.js" crossorigin="anonymous"></script>
+
+    {% block head_mixin %}{% endblock %}
+
 </head>
 
 <div>
@@ -33,6 +37,7 @@
         {% block body %}
             Insert Body here
         {% endblock %}
+        {% block body_mixin %}{% endblock %}
     </div>
 
 

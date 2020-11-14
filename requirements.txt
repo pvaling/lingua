@@ -1,2 +1,5 @@
 django-money
 django-allauth
+django-crispy-forms
+django-image-cropping
+easy-thumbnails

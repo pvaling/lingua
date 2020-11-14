@@ -64,7 +64,11 @@
                 <p class="text-light lead ">Every bilingual child is unique. Learning two languages depends on the amount and type of practice your child gets.</p>
                 <p>
                     <a href="{% url 'tutors:tutors_list' %}" class="btn btn-primary my-2">Find a Tutor</a>
-                    <a href="{% url 'tutors:register_tutor' %}" class="btn btn-secondary my-2">Become a Tutor</a>
+                    {% if user.is_tutor %}
+                        <a href="{% url 'tutors:tutor_profile' %}" class="btn btn-secondary my-2">Edit my Tutor Profile</a>
+                    {% else %}
+                        <a href="{% url 'tutors:register_tutor' %}" class="btn btn-secondary my-2">Become a Tutor</a>
+                    {% endif %}
                     {% if user.is_superuser %}
                         <a href="/admin" class="btn btn-danger my-2">Admin Console</a>
                     {% endif %}
@@ -80,12 +84,19 @@
                     </div>
                 </div>
                 <div class="row pt-3">
-
+                    {% if featured_tutors %}
                     {% for tutor in featured_tutors %}
                         <div class="col-md-4">
                             {% include 'tutors/components/tutor_card.html' %}
                         </div>
                     {% endfor %}
+                    {% else %}
+                        <div class="col-md-12">
+                            <p>
+                                Sorry, no tutors available now.
+                            </p>
+                        </div>
+                    {% endif %}
 
                 </div>
             </div>
