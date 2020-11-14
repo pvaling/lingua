@@ -1,7 +1,7 @@
 # lingua
-Bilingual teachers hub.
+Bilingual tutors hub.
 
-Bilingual hub is a non-profit project for connecting Teachers with Parents who has bilingual children.
+Bilingual hub is a non-profit project for connecting Tutors with Parents who has bilingual children.
 
 Based on Django with templates.
 
