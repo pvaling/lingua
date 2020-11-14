@@ -20,7 +20,7 @@ from django.urls import path, include
 from lingua import settings
 
 urlpatterns = [
-    path('', include('teachers.urls'), name='teachers'),
+    path('', include('tutors.urls'), name='tutors'),
     path('admin/', admin.site.urls),
 ]
 

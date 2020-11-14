@@ -1,0 +1,13 @@
+{% if tutors %}
+    <div class="row">
+        {% for tutor in tutors %}
+            <div class="col-md-4">
+                {% with hide_description as True %}
+                    {% include 'tutors/components/tutor_card.html' %}
+                {% endwith %}
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No tutors are available.</p>
+{% endif %}

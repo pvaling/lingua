@@ -1,4 +1,4 @@
-{% extends 'teachers/base.html' %}
+{% extends 'tutors/base.html' %}
 
 {% load static %}
 
@@ -28,8 +28,8 @@
                 <h1>Teaching Your Child To Be Bilingual</h1>
                 <p class="lead text-muted">Every bilingual child is unique. Learning two languages depends on the amount and type of practice your child gets.</p>
                 <p>
-                    <a href="{% url 'teachers:tutors_list' %}" class="btn btn-primary my-2">Find a Tutor</a>
-                    <a href="{% url 'teachers:register_teacher' %}" class="btn btn-secondary my-2">Become a Tutor</a>
+                    <a href="{% url 'tutors:tutors_list' %}" class="btn btn-primary my-2">Find a Tutor</a>
+                    <a href="{% url 'tutors:register_tutor' %}" class="btn btn-secondary my-2">Become a Tutor</a>
                 </p>
             </div>
         </section>
@@ -38,9 +38,9 @@
             <div class="container">
                 <div class="row">
 
-                    {% for teacher in featured_teachers %}
+                    {% for tutor in featured_tutors %}
                         <div class="col-md-4">
-                            {% include 'teachers/components/teacher_card.html'  %}
+                            {% include 'tutors/components/tutor_card.html' %}
                         </div>
                     {% endfor %}
 

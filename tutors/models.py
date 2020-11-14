@@ -8,7 +8,7 @@ def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/{1}'.format(instance.id, filename)
 
-class Teacher(models.Model):
+class Tutor(models.Model):
     firstname = models.CharField(max_length=1024)
     lastname = models.CharField(max_length=1024)
     email = models.EmailField(blank=False)
