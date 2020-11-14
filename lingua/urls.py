@@ -22,6 +22,7 @@ from lingua import settings
 urlpatterns = [
     path('', include('tutors.urls'), name='tutors'),
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
