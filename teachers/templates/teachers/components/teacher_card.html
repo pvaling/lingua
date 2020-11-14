@@ -1,0 +1,27 @@
+<div class="card mb-4 shadow-sm">
+        <svg class="bd-placeholder-img card-img-top"
+         width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img"
+         aria-label="placeholder: thumbnail">
+            {% if teacher.avatar_file %}
+                    <image width="100%"  preserveAspectRatio="xMidYMin slice" xlink:href="{{ teacher.avatar_file.url }}" alt="" />
+            {% else %}
+                    <title>placeholder</title>
+                    <rect width="100%" height="100%" fill="#55595c"/>
+                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">No photo</text>
+            {% endif %}
+
+        </svg>
+
+    <div class="card-body">
+        <h3>{{ teacher.firstname }}</h3>
+        {% if hide_description %}
+            <p class="card-text">this is a wider card with supporting text below as a natural lead-in to additional content. this content is a little bit longer.</p>
+        {% endif %}
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <a href="{% url 'teachers:detail' teacher_id=teacher.id %}" type="button" class="btn btn-sm btn-outline-secondary">view</a>
+            </div>
+            <small class="text-muted">35 EUR / h</small>
+        </div>
+    </div>
+</div>

@@ -1,16 +1,54 @@
 {% extends 'teachers/base.html' %}
 
-{% block header %}
-    <div class="header">
-        <h3>Header</h3>
-        <h1>BiLingua</h1>
-    </div>
-{% endblock %}
+{% load static %}
 
 {% block body %}
-    <h2>Featured teachers</h2>
-    {% include 'teachers/teachers_list.html' %}
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+    <main role="main">
+
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1>Teaching Your Child To Be Bilingual</h1>
+                <p class="lead text-muted">Every bilingual child is unique. Learning two languages depends on the amount and type of practice your child gets.</p>
+                <p>
+                    <a href="{% url 'teachers:tutors_list' %}" class="btn btn-primary my-2">Find a Tutor</a>
+                    <a href="{% url 'teachers:register_teacher' %}" class="btn btn-secondary my-2">Become a Tutor</a>
+                </p>
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row">
+
+                    {% for teacher in featured_teachers %}
+                        <div class="col-md-4">
+                            {% include 'teachers/components/teacher_card.html'  %}
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+    </main>
 
 {% endblock %}
 

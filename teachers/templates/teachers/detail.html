@@ -11,6 +11,8 @@
         <h1>{{ teacher.lastname }} {{ teacher.firstname }}</h1>
     </div>
     <div>
-        <img src="{{ teacher.avatar_file.url }}" alt="">
+        {% if teacher.avatar_file %}
+            <img src="{{ teacher.avatar_file.url }}" alt="">
+        {% endif %}
     </div>
 {% endblock %}

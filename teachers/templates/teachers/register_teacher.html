@@ -1,0 +1,20 @@
+{% extends 'teachers/base.html' %}
+
+{% block body %}
+
+    <a href="{% url 'teachers:index' %}">Back</a>
+
+    <h2>Registration form</h2>
+
+    <form action="">
+        <input type="text" placeholder="Firstname"> <br>
+        <input type="text" placeholder="Lastname"> <br>
+
+        <input type="email" placeholder="Email"> <br>
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
+
+
+
