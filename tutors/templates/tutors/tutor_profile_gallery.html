@@ -11,20 +11,41 @@
 {% block body %}
 
     <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:index' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:tutors_list' %}">All Tutors</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:detail' tutor_id=user.tutor.id %}">{{ user.tutor }}</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:tutor_profile' %}">Profile Edit</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Manage Gallery</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <h1>Tutor profile gallery</h1>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                {% for gallery_item in gallery_items %}
+            {% for gallery_item in gallery_items %}
+                <div class="col-md-2">
                     <img width="100px" src="{{ gallery_item.image.url }}" alt="">
-                {% endfor %}
-            </div>
+                    <form action="{% url 'tutors:tutor_profile_gallery' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ gallery_item.id }}">
+                        <input type="hidden" name="action" value="delete">
+
+                        <input type="submit" value="delete">
+                    </form>
+                </div>
+            {% endfor %}
         </div>
-        <div class="row mt-10">
-            <div class="col-md-12">
+        <div class="row mt-5">
+            <div class="col-md-12 mt-10">
+                <h3>Upload new items</h3>
                 <form action="{% url 'tutors:tutor_profile_gallery' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}

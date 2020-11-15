@@ -5,7 +5,7 @@ from tutors.models import Tutor
 
 def tutors_list(request):
 
-    tutors = Tutor.objects.all()
+    tutors = Tutor.objects.filter(is_approved=True, is_available=True)
 
     context = {
         'tutors': tutors,

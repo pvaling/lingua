@@ -11,6 +11,20 @@
 {% block body %}
 
     <div class="container">
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:index' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:tutors_list' %}">All Tutors</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:detail' tutor_id=user.tutor.id %}">{{ user.tutor }}</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:tutor_profile' %}">My profile edit</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My avatar</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <h1>Tutor profile</h1>

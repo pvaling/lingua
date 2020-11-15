@@ -24,7 +24,17 @@ class User(AbstractUser):
         return self.first_name + ' ' + self.last_name
 
 
+class Language(models.Model):
+    label = models.CharField(max_length=255, unique=True)
 
+    def __str__(self):
+        return self.label
+
+class Subject(models.Model):
+    label = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.label
 
 class Tutor(models.Model):
 
@@ -38,6 +48,9 @@ class Tutor(models.Model):
         blank=True, decimal_places=2, default_currency='EUR', max_digits=1000000,
         default=Money("0", "EUR")
     )
+
+    languages = models.ManyToManyField(Language, blank=True)
+    subjects = models.ManyToManyField(Subject, blank=True)
 
     is_available = models.BooleanField(default=False, null=True)
     is_approved = models.BooleanField(default=False, null=True)

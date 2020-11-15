@@ -3,8 +3,7 @@ from django.forms import ImageField
 from djmoney.forms import MoneyField, MoneyWidget
 from image_cropping import ImageCropField, ImageCropWidget, ImageRatioField
 
-from tutors.models import User
-
+from tutors.models import User, Language, Subject
 
 
 class AvatarForm(forms.ModelForm):
@@ -25,6 +24,9 @@ class TutorProfileForm(forms.Form):
 
     experience_years = forms.IntegerField()
     price = MoneyField(default_currency='EUR')
+
+    languages = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), required=False)
+    subjects = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(), required=False)
 
 
 class TutorGalleryForm(forms.Form):

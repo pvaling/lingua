@@ -12,6 +12,8 @@ def tutor_profile(request):
                 'last_name': request.user.last_name,
                 'about': request.user.tutor.about,
                 'price': request.user.tutor.price,
+                'languages': request.user.tutor.languages.all(),
+                'subjects': request.user.tutor.subjects.all(),
                 'is_available': request.user.tutor.is_available,
                 'is_approved': request.user.tutor.is_approved,
                 'experience_years': request.user.tutor.experience_years,
@@ -30,15 +32,14 @@ def tutor_profile(request):
             request.user.tutor.is_available = form.cleaned_data['is_available']
             # request.user.tutor.is_approved = form.
             request.user.tutor.price = form.cleaned_data['price']
+            request.user.tutor.languages.set(form.cleaned_data['languages'])
+            request.user.tutor.subjects.set(form.cleaned_data['subjects'])
             request.user.tutor.experience_years = form.cleaned_data['experience_years']
 
             request.user.save()
 
-
     context = {
         'form': form
     }
-
-
 
     return render(request, 'tutors/tutor_profile.html', context=context)
