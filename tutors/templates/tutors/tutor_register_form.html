@@ -3,6 +3,10 @@
 {% load socialaccount %}
 {% load account %}
 
+{% block head_mixin %}
+    {{ form.media }}
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="row mt-4">

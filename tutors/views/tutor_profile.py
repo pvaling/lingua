@@ -1,6 +1,7 @@
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import get_object_or_404, render
 
-from tutors.forms.tutor_form import TutorProfileForm
+from tutors.forms.tutor_form import TutorProfileForm, AvatarForm
 from tutors.models import Tutor
 
 def tutor_profile(request):
@@ -30,9 +31,9 @@ def tutor_profile(request):
             # request.user.tutor.is_approved = form.
             request.user.tutor.price = form.cleaned_data['price']
             request.user.tutor.experience_years = form.cleaned_data['experience_years']
+
             request.user.save()
 
-    form.first_name = request.user.first_name
 
     context = {
         'form': form

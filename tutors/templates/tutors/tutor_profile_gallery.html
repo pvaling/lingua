@@ -13,14 +13,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Tutor profile</h1>
+                <h1>Tutor profile gallery</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% for gallery_item in gallery_items %}
+                    <img width="100px" src="{{ gallery_item.image.url }}" alt="">
+                {% endfor %}
             </div>
         </div>
         <div class="row mt-10">
             <div class="col-md-12">
-                <a href="{% url 'tutors:tutor_profile_avatar' %}">Manage avatar photo</a> <br />
-                <a href="{% url 'tutors:tutor_profile_gallery' %}">Manage gallery</a>
-                <form action="{% url 'tutors:tutor_profile' %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'tutors:tutor_profile_gallery' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}
                     <input type="submit" class="btn btn-success" value="Save">

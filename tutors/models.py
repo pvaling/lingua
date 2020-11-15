@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from djmoney.models.fields import MoneyField
 from djmoney.money import Money
-from image_cropping import ImageRatioField
+from image_cropping import ImageRatioField, ImageCropField
 
 
 def user_directory_path(instance, filename):
@@ -17,11 +17,14 @@ class User(AbstractUser):
     is_tutor = models.BooleanField('tutor status', default=False)
     is_customer = models.BooleanField('customer status', default=False)
 
-    avatar = models.ImageField(blank=True, upload_to='uploaded_images')
-    avatar_cropping = ImageRatioField('avatar', '430x360')
+    avatar = ImageCropField(blank=True, upload_to='uploaded_images')
+    cropping = ImageRatioField('avatar', '430x360')
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
+
+
+
 
 class Tutor(models.Model):
 
@@ -47,6 +50,11 @@ class Tutor(models.Model):
         return display_name
 
 
+class GalleryItem(models.Model):
+    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='gallery_items')
+    order = models.IntegerField(default=0)
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -57,4 +65,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     if hasattr(instance, 'tutor'):
         instance.tutor.save()
+
+
 
