@@ -5,6 +5,7 @@
 {% block body %}
 
     <div class="container">
+        <h1>Chatroom</h1>
         <ul>
             {% for message in chatroom.chatmessage_set.all %}
                 <li>{{ message.author }} / {{ message.created|date:"m:d:Y" }} -> {{ message.body }}</li>
@@ -16,7 +17,7 @@
             <form method="post" action="{% url 'tutors:tutor_chat' tutor_id=tutor.id %}">
                 {% csrf_token %}
                 {{ message_form|crispy }}
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Send message" />
             </form>
         </div>
 
