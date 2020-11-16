@@ -70,9 +70,11 @@ class GalleryItem(models.Model):
 
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+def create_user_profile(sender, instance: User, created, **kwargs):
     if created:
         Tutor.objects.create(user=instance)
+        instance.is_tutor = True
+        instance.save()
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

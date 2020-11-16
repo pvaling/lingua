@@ -1,0 +1,86 @@
+[
+  {
+    "model": "tutors.subject",
+    "pk": 1,
+    "fields": {
+      "label": "History"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 2,
+    "fields": {
+      "label": "Literature"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 3,
+    "fields": {
+      "label": "Languages"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 4,
+    "fields": {
+      "label": "Mathematics"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 5,
+    "fields": {
+      "label": "Physics"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 6,
+    "fields": {
+      "label": "Computer Science"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 7,
+    "fields": {
+      "label": "Biology"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 8,
+    "fields": {
+      "label": "Chemistry"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 9,
+    "fields": {
+      "label": "Music"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 10,
+    "fields": {
+      "label": "Arts"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 11,
+    "fields": {
+      "label": "Geography"
+    }
+  },
+  {
+    "model": "tutors.subject",
+    "pk": 12,
+    "fields": {
+      "label": "Astronomy"
+    }
+  }
+]
