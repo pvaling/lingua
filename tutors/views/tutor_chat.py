@@ -15,19 +15,11 @@ class MessageForm(ModelForm):
         model = ChatMessage
         fields = ('body',)
 
-
-
 def tutor_chat(request, tutor_id):
 
     tutor = Tutor.objects.get(id=int(tutor_id))
 
-    participants = [request.user, tutor.user]
-    participants = list(set(participants))
-
-    query = ChatRoom.objects.annotate(count=Count('members')).filter(count=len(participants))
-
-    for pk in participants:
-        query.filter(members__pk=pk.pk)
+    query = ChatRoom.objects.all().filter(members=tutor.user).filter(members=request.user)
 
     cnt = query.count()
 
@@ -39,28 +31,42 @@ def tutor_chat(request, tutor_id):
     else:
         chatroom = query.first()
 
+    return HttpResponseRedirect(reverse('tutors:chatroom', kwargs={'chatroom_id': chatroom.id}))
+
+
+def tutor_chatrooms(request):
+    context = {
+        'chatrooms': ChatRoom.objects.filter(members=request.user)
+    }
+    return render(request, 'tutors/tutor_chatrooms.html', context=context)
+
+
+def chatroom(request, chatroom_id):
+    #todo: check access!!!
+
+    chatroom = ChatRoom.objects.get(pk=int(chatroom_id))
+
     if request.method == 'POST':
         form = MessageForm(request.POST, request.FILES,
                            initial={
                                'author': request.user,
-                               'chatroom': chatroom.id
+                               'chatroom': chatroom_id
                            })
         if form.is_valid():
             # form.author = request.user
             form.instance.author = request.user
             form.instance.chatroom = chatroom
             form.save()
-            return HttpResponseRedirect(reverse('tutors:tutor_chat', kwargs={'tutor_id': tutor_id}))
+            return HttpResponseRedirect(reverse('tutors:chatroom', kwargs={'chatroom_id': chatroom_id}))
 
 
 
     msg_form = MessageForm(initial={
-        'author': request.user
+        'author': request.user,
     })
 
     context = {
         'chatroom': chatroom,
         'message_form': msg_form,
-        'tutor': tutor
     }
     return render(request, 'tutors/chat.html', context=context)

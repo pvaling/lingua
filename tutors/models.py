@@ -1,3 +1,6 @@
+from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.signals import social_account_added
+from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -13,7 +16,12 @@ def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/{1}'.format(instance.id, filename)
 
+
+
+
+
 class User(AbstractUser):
+
     is_tutor = models.BooleanField('tutor status', default=False)
     is_customer = models.BooleanField('customer status', default=False)
 
@@ -22,6 +30,8 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
+
+
 
 
 class Language(models.Model):
@@ -71,14 +81,19 @@ class GalleryItem(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance: User, created, **kwargs):
-    if created:
-        Tutor.objects.create(user=instance)
-        instance.is_tutor = True
-        instance.save()
+    # if created:
+    #     Tutor.objects.create(user=instance)
+    #     instance.is_tutor = True
+    #     instance.save()
+    pass
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    if hasattr(instance, 'tutor'):
+    if instance.is_tutor:
+
+        if not hasattr(instance, 'tutor'):
+            Tutor.objects.create(user=instance)
+
         instance.tutor.save()
 
 

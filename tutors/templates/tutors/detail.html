@@ -84,9 +84,9 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col-md-6">
-                        <button class="btn btn-primary">
+                        <a class="btn btn-primary" href="{% url 'tutors:tutor_chat' tutor_id=tutor.id %}">
                             Chat with {{ tutor.user.first_name }}
-                        </button>
+                        </a>
                         {% if tutor.user == user %}
                             <a class="btn btn-danger" href="{% url 'tutors:tutor_profile' %}">Edit my Profile</a>
                         {% endif %}
