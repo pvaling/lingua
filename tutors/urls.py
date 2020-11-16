@@ -1,5 +1,6 @@
 from django.urls import path
 
+from .views.tutor_chat import tutor_chat
 from .views.tutor_profile_gallery import tutor_profile_gallery
 from .views.user_profile import user_profile
 from .views.tutors_list import tutors_list
@@ -14,6 +15,7 @@ app_name = 'tutors'
 urlpatterns = [
     path('', index, name='index'),
     path('tutor/<int:tutor_id>', detail, name='detail'),
+    path('tutor/<int:tutor_id>/chat', tutor_chat, name='tutor_chat'),
     path('tutor/register', register_tutor, name='register_tutor'),
     path('tutor/profile', tutor_profile, name='tutor_profile'),
     path('tutor/profile/avatar', user_profile, name='tutor_profile_avatar'),

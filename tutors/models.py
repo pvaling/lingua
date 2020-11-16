@@ -80,4 +80,20 @@ def save_user_profile(sender, instance, **kwargs):
         instance.tutor.save()
 
 
+class ChatRoom(models.Model):
+    members = models.ManyToManyField(User)
 
+    def __str__(self):
+        return 'Chat_id:{chat_id}'.format(chat_id=self.id) + '/' + '<->'.join([str(x.id) for x in self.members.all()])
+
+
+class ChatMessage(models.Model):
+
+    chatroom = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
+
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now=True)
+
+    body = models.CharField(max_length=10000)
+
+    attachment = models.FileField(upload_to='chat_attachments', blank=True)
