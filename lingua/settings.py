@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'image_cropping',
     'django_filters',
+    'django_extensions',
 
     'allauth',
     'allauth.account',
