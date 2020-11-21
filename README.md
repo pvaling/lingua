@@ -12,7 +12,7 @@ Inspired by:
 - [x] https://simpleisbetterthancomplex.com/tutorial/2017/02/06/how-to-implement-case-insensitive-username.html
 - [ ] https://simpleisbetterthancomplex.com/tutorial/2016/11/23/how-to-add-user-profile-to-django-admin.html
 - [ ] https://simpleisbetterthancomplex.com/tutorial/2016/11/22/django-multiple-file-upload-using-ajax.html
-- [ ] https://simpleisbetterthancomplex.com/tutorial/2016/10/24/how-to-add-social-login-to-django.html
+- [x] https://simpleisbetterthancomplex.com/tutorial/2016/10/24/how-to-add-social-login-to-django.html
 - [ ] https://simpleisbetterthancomplex.com/tips/2016/10/17/django-tip-18-translations.html
 - [ ] https://simpleisbetterthancomplex.com/references/2016/10/10/url-patterns.html
 - [ ] https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
