@@ -196,3 +196,7 @@ IMAGE_CROPPING_BACKEND_PARAMS = {}
 
 # IMAGE_CROPPING_JQUERY_URL = 'admin/js/vendor/jquery/jquery.js'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ACCOUNT_FORMS = {
+    'login': 'tutors.forms.account.CustomLoginForm',
+}

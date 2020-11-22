@@ -10,5 +10,6 @@ def index(request):
 
     context = {
         'featured_tutors': tutors,
+        'active_nav': 'home'
     }
     return render(request, 'tutors/index.html', context=context)

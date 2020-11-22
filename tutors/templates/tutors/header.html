@@ -13,17 +13,20 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item {% if active_nav == 'home' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'tutors:index' %}">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if active_nav == 'tutors' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'tutors:tutors_list' %}">Tutors</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Courses</a>
+                    <li class="nav-item {% if active_nav == 'courses' %}active{% endif %}">
+                        <a class="nav-link disabled" href="#">Courses</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if active_nav == 'schools' %}active{% endif %}">
                         <a class="nav-link disabled" href="#">Schools</a>
+                    </li>
+                    <li class="nav-item {% if active_nav == 'parent_ads' %}active{% endif %}">
+                        <a class="nav-link disabled" href="#">Parent Ads</a>
                     </li>
                 </ul>
                 <span class="navbar-nav">

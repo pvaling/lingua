@@ -8,7 +8,8 @@ def tutors_list(request):
 
     filter = TutorFilter(request.GET, queryset=Tutor.objects.filter(is_approved=True, is_available=True))
     context = {
-        'filter': filter
+        'filter': filter,
+        'active_nav': 'tutors'
     }
 
     return render(request, 'tutors/list_page.html', context=context)
