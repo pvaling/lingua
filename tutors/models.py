@@ -128,7 +128,7 @@ class ChatMessage(models.Model):
     attachment = models.FileField(upload_to='chat_attachments', blank=True)
 
 
-class JobRequest(models.Model):
+class JobOffer(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     description = models.TextField()
