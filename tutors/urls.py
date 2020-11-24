@@ -7,6 +7,7 @@ from .views.tutors_list import tutors_list
 from .views.detail import detail
 from .views.index import index
 from .views.register import register_tutor
+from .views.workspace import workspace_index
 from .views.tutor_profile import tutor_profile
 
 app_name = 'tutors'
@@ -24,4 +25,5 @@ urlpatterns = [
     path('tutor/profile/gallery', tutor_profile_gallery, name='tutor_profile_gallery'),
     path('user_profile', user_profile, name='user_profile'),
     path('tutors/list', tutors_list, name='tutors_list'),
+    path('workspace', workspace_index, name='workspace_index'),
 ]
