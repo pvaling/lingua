@@ -9,7 +9,7 @@
     become_user: ubuntu
     git:
       repo: git@github.com:pvaling/lingua.git
-      dest: /home/ubuntu/
+      dest: /home/ubuntu/lingua
       version: dev
       force: yes
       accept_hostkey: yes
