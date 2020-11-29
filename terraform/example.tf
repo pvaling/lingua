@@ -25,6 +25,7 @@ provider "aws" {
 resource "aws_instance" "example" {
   ami           = "ami-0502e817a62226e03"
   instance_type = "t2.nano"
+  key_name = "aws_ec2"
 }
 
 output "ami" {
