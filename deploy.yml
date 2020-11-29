@@ -1,0 +1,24 @@
+---
+- name: Deploy django app
+  gather_facts: false
+  tasks:
+
+  - name: pull changes
+    become: yes
+    become_user: dreams
+    git:
+      repo: git@github.com:pvaling/dreams.git
+      dest: /opt/projects/dreams/
+      version: dev
+      force: yes
+      accept_hostkey: yes
+      update: yes
+      recursive: yes
+      remote: origin
+
+  - name: pip install
+    become: yes
+    become_user: dreams
+    pip:
+      requirements: /opt/projects/dreams/requirements.txt
+      virtualenv: /usr/local/envs/dreams/
