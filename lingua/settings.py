@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv('LINGUA_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('LINGUA_DEBUG', default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['LINGUA_ALLOWED_HOSTS']
 
 
 # Application definition
