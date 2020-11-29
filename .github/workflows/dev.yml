@@ -35,6 +35,8 @@ jobs:
       - name: SSH Into Host
         run: ssh ubuntu@18.197.208.190    
       
+      - name: LS command
+        run: ls -la
       
       # Runs a single command using the runners shell
       - name: Run a one-line script
