@@ -31,6 +31,17 @@ jobs:
           key: ${{ secrets.EC2_VM_KEY }}
           name: id_rsa # optional
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          
+          
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: deploy.yml
+          directory: ./
+          key: ${{secrets.EC2_VM_KEY}}
+          inventory: |
+            [all]
+            18.197.208.190
       
       - name: SSH Into Host
         run: ssh ubuntu@18.197.208.190    
