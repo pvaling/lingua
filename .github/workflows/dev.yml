@@ -2,7 +2,7 @@
 
 name: CI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -24,31 +24,31 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        
+
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.EC2_VM_KEY }}
           name: id_rsa # optional
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
-          
-          
+
+
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: deploy.yml
+          playbook: ansible/deploy.yml
           directory: ./
           key: ${{secrets.EC2_VM_KEY}}
           inventory: |
             [all]
-            18.197.208.190 ansible_user='ubuntu'
-      
+            ${{secrets.EC2_VM_EXT_IP}} ansible_user='ubuntu'
+
       - name: SSH Into Host
-        run: ssh ubuntu@18.197.208.190    
-      
+        run: ssh ubuntu@${{secrets.EC2_VM_EXT_IP}}
+
       - name: LS command
         run: ls -la
-      
+
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
