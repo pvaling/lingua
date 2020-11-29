@@ -22,4 +22,3 @@
     become_user: ubuntu
     pip:
       requirements: /home/ubuntu/lingua/requirements.txt
-      virtualenv: /home/ubuntu/envs/lingua/
