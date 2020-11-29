@@ -41,7 +41,7 @@ jobs:
           key: ${{secrets.EC2_VM_KEY}}
           inventory: |
             [all]
-            18.197.208.190
+            18.197.208.190 ansible_user='ubuntu'
       
       - name: SSH Into Host
         run: ssh ubuntu@18.197.208.190    
