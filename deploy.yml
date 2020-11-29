@@ -6,10 +6,10 @@
 
   - name: pull changes
     become: yes
-    become_user: dreams
+    become_user: ubuntu
     git:
-      repo: git@github.com:pvaling/dreams.git
-      dest: /opt/projects/dreams/
+      repo: git@github.com:pvaling/lingua.git
+      dest: /opt/projects/lingua/
       version: dev
       force: yes
       accept_hostkey: yes
@@ -19,7 +19,7 @@
 
   - name: pip install
     become: yes
-    become_user: dreams
+    become_user: ubuntu
     pip:
-      requirements: /opt/projects/dreams/requirements.txt
-      virtualenv: /usr/local/envs/dreams/
+      requirements: /opt/projects/lingua/requirements.txt
+      virtualenv: /usr/local/envs/lingua/
