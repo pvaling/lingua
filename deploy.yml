@@ -1,6 +1,6 @@
 ---
 - name: Deploy django app
-  hosts: .ansible_inventory
+  hosts: all
   gather_facts: false
   tasks:
 
