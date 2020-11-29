@@ -1,4 +1,4 @@
 /db.sqlite3
 .idea
-/lingua/settings.py
+/lingua/.env
 media

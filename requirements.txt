@@ -1,1 +1,8 @@
 django-money
+django-allauth
+django-crispy-forms
+django-image-cropping
+easy-thumbnails
+django-filter
+python-dotenv
+django_extensions

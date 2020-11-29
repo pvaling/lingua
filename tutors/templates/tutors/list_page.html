@@ -20,13 +20,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <span>Filters not ready yet</span>
-                        <ul>
-                            <li>Languages</li>
-                            <li>Country</li>
-                            <li>Subjects</li>
-                            <li>Gender</li>
-                        </ul>
+                        <form method="get">
+                            {{ filter.form.as_p }}
+                            <input type="submit" />
+                        </form>
                     </div>
                 </div>
             </div>

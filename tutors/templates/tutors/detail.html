@@ -1,5 +1,6 @@
 {% extends 'tutors/base.html' %}
 
+{% load cropping %}
 
 
 {% block body %}
@@ -19,9 +20,9 @@
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
-                        {% if tutor.avatar_file %}
+                        {% if tutor.user.avatar %}
                             <div class="">
-                                <img class="img-fluid img-thumbnail" width="300px" height="auto" src="{{ tutor.avatar_file.url }}" alt="">
+                                <img class="img-fluid img-thumbnail" width="300px" height="auto" src="{% cropped_thumbnail tutor.user "cropping" %}" alt="">
                             </div>
                         {% endif %}
                     </div>
@@ -36,23 +37,59 @@
                         Experience: {{ tutor.experience_years }} year{{ tutor.experience_years|pluralize }}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Gallery</h4>
+                        {% for gallery_item in tutor.galleryitem_set.all %}
+                            <img width="50px" src="{{ gallery_item.image.url }}" alt="">
+                        {% endfor %}
+                    </div>
+                </div>
+
             </div>
             <div class="col-md-7 offset-md-1">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>{{ tutor.firstname }} {{ tutor.lastname }}</h1>
+                        <h1>{{ tutor.user.first_name }} {{ tutor.user.last_name }}</h1>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-11">
+                        <h4>About me</h4>
                         {{ tutor.about }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 mt-5">
+                        <h4>My skills</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Subjects:</h5>
+                                <ul>
+                                    {% for subject in tutor.subjects.all %}
+                                        <li>{{ subject }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Languages:</h5>
+                                <ul>
+                                    {% for language in tutor.languages.all %}
+                                        <li>{{ language }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-md-6">
-                        <button class="btn btn-primary" disabled="disabled">
-                            Chat with {{ tutor.firstname }}
-                        </button>
+                        <a class="btn btn-primary" href="{% url 'tutors:tutor_chat' tutor_id=tutor.id %}">
+                            Chat with {{ tutor.user.first_name }}
+                        </a>
+                        {% if tutor.user == user %}
+                            <a class="btn btn-danger" href="{% url 'tutors:tutor_profile' %}">Edit my Profile</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

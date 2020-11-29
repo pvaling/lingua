@@ -1,0 +1,38 @@
+{% extends 'tutors/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Chatroom</h1>
+                <ul id="chat-wrapper" style="overflow-y: scroll; max-height: 400px">
+                    {% for message in chatroom.chatmessage_set.all %}
+
+                        <li class="mb-3 {% if user == message.author %}text-right{% endif %}">
+                            <small class="text-muted">{{ message.created|date:"H:i:s m.d.Y" }}</small><br/>
+                            <small>{{ message.author }}</small><br />
+                            <i>{{ message.body }}</i>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            <form method="post" action="{% url 'tutors:chatroom' chatroom_id=chatroom.id %}">
+                {% csrf_token %}
+                {{ message_form|crispy }}
+                <input type="submit" value="Send message" />
+            </form>
+        </div>
+
+        <script>
+            let chat_wrapper = document.getElementById('chat-wrapper');
+            chat_wrapper.scrollTop = chat_wrapper.scrollHeight;
+        </script>
+
+    </div>
+{% endblock %}

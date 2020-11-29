@@ -1,6 +1,6 @@
-{% if tutors %}
+{% if filter.qs %}
     <div class="row">
-        {% for tutor in tutors %}
+        {% for tutor in filter.qs %}
             <div class="col-md-4">
                 {% with hide_description as True %}
                     {% include 'tutors/components/tutor_card.html' %}

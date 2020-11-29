@@ -1,0 +1,46 @@
+{% extends 'tutors/base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+{% load cropping %}
+
+{% block head_mixin %}
+    {{ form.media }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:index' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:tutors_list' %}">All Tutors</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:detail' tutor_id=user.tutor.id %}">{{ user.tutor }}</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:tutor_profile' %}">My profile edit</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My avatar</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Tutor profile</h1>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-12">
+                <form action="{% url 'tutors:user_profile' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" class="btn btn-success" value="Save">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

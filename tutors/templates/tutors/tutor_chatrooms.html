@@ -1,0 +1,16 @@
+{% extends 'tutors/base.html' %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Chatrooms</h1>
+        <ul>
+            {% for chatroom in chatrooms %}
+                <li>
+                    <a href="{% url 'tutors:chatroom' chatroom_id=chatroom.id %}">{{ chatroom }}</a> (messages: {{ chatroom.chatmessage_set.count }})
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+{% endblock %}
