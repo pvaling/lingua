@@ -7,8 +7,7 @@ from .views.tutors_list import tutors_list
 from .views.detail import detail
 from .views.index import index
 from .views.register import register_tutor
-from .views.workspace import workspace_index
-from .views.tutor_profile import tutor_profile
+from .views.workspace import workspace_index, workspace_settings, workspace_tutor_profile_edit
 
 app_name = 'tutors'
 
@@ -20,10 +19,11 @@ urlpatterns = [
     path('tutor/chatrooms', tutor_chatrooms, name='tutor_chatrooms'),
     path('chatroom/<int:chatroom_id>', chatroom, name='chatroom'),
     path('tutor/register', register_tutor, name='register_tutor'),
-    path('tutor/profile', tutor_profile, name='tutor_profile'),
     path('tutor/profile/avatar', user_profile, name='tutor_profile_avatar'),
     path('tutor/profile/gallery', tutor_profile_gallery, name='tutor_profile_gallery'),
     path('user_profile', user_profile, name='user_profile'),
     path('tutors/list', tutors_list, name='tutors_list'),
     path('workspace', workspace_index, name='workspace_index'),
+    path('workspace/settings', workspace_settings, name='workspace_settings'),
+    path('workspace/tutor_profile_edit', workspace_tutor_profile_edit, name='workspace_tutor_profile_edit'),
 ]

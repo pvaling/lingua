@@ -56,8 +56,16 @@
                 <div class="row">
                     <div class="col-md-11">
                         <h4>About me</h4>
-                        {{ tutor.about }}
+                        <div class="div">
+                            {{ tutor.about }}
+                        </div>
+                        {% if tutor.video_profile_file %}
+                            <div class="div">
+                                <video controls="controls" width="300px" src="{{ tutor.video_profile_file.url }}"></video>
+                            </div>
+                        {% endif %}
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-11 mt-5">
@@ -88,7 +96,7 @@
                             Chat with {{ tutor.user.first_name }}
                         </a>
                         {% if tutor.user == user %}
-                            <a class="btn btn-danger" href="{% url 'tutors:tutor_profile' %}">Edit my Profile</a>
+                            <a class="btn btn-danger" href="{% url 'tutors:workspace_tutor_profile_edit' %}">Edit my Profile</a>
                         {% endif %}
                     </div>
                 </div>

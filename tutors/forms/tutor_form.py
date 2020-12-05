@@ -12,24 +12,31 @@ class AvatarForm(forms.ModelForm):
         fields = ('avatar', 'cropping')
 
 
-class TutorProfileForm(forms.Form):
+# class TutorProfileForm(forms.Form):
+#
+#     first_name = forms.CharField(label='First name', max_length=100, disabled=True, required=False)
+#     last_name = forms.CharField(label='Last name', max_length=100, disabled=True, required=False)
+#
+#     about = forms.CharField(label='About', widget=forms.Textarea(attrs={'rows': 4}))
+#
+#
+#     is_available = forms.BooleanField(required=False)
+#     is_approved = forms.BooleanField(required=False, disabled=True)
+#
+#     experience_years = forms.IntegerField()
+#     price = MoneyField(default_currency='EUR')
+#
+#     native_languages = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), required=False)
+#     languages = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), required=False)
+#     subjects = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(), required=False)
 
-    first_name = forms.CharField(label='First name', max_length=100, disabled=True, required=False)
-    last_name = forms.CharField(label='Last name', max_length=100, disabled=True, required=False)
 
-    about = forms.CharField(label='About', widget=forms.Textarea(attrs={'rows':4}))
+class TutorProfileForm(forms.ModelForm):
 
-    is_available = forms.BooleanField(required=False)
-    is_approved = forms.BooleanField(required=False, disabled=True)
-
-    experience_years = forms.IntegerField()
-    price = MoneyField(default_currency='EUR')
-
-    native_languages = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), required=False)
-    languages = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), required=False)
-    subjects = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(), required=False)
-
-
+    class Meta:
+        model = Tutor
+        fields = '__all__'
+        exclude = ['user', 'is_approved']
 
 
 class TutorGalleryForm(forms.Form):

@@ -34,6 +34,20 @@ class User(AbstractUser):
     def __str__(self):
         return self.first_name + ' ' + self.last_name
 
+    def get_user_type(self):
+        if self.is_customer:
+            return 'parent'
+        if self.is_tutor:
+            return 'tutor'
+        if self.is_school:
+            return 'school'
+
+    def switch_type(self, user_type):
+        self.is_customer = (user_type == 'parent')
+        self.is_tutor = (user_type == 'tutor')
+        self.is_school = (user_type == 'school')
+        self.save()
+
 
 
 
@@ -62,7 +76,9 @@ class Tutor(models.Model):
     experience_years = models.IntegerField(blank=True, default=0)
 
     about = models.TextField(blank=True)
-    video_profile = models.ForeignKey(VideoProfile, blank=True, null=True, on_delete=models.CASCADE)
+
+    video_profile_file = models.FileField(blank=True, upload_to='video_profiles')
+    video_profile_url = models.URLField(blank=True, verbose_name='Youtube or Vimeo Link')
 
     price = MoneyField(
         blank=True, decimal_places=2, default_currency='EUR', max_digits=1000000,
