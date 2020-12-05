@@ -1,38 +1,139 @@
 {% extends 'tutors/base.html' %}
 
 {% load crispy_forms_tags %}
+{% load static %}
+{% load cropping %}
+{% load easy_thumbnails_tags %}
 
 {% block body %}
+    <link rel="stylesheet" href="{% static 'css/chatroom.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h1>Chatroom</h1>
-                <ul id="chat-wrapper" style="overflow-y: scroll; max-height: 400px">
-                    {% for message in chatroom.chatmessage_set.all %}
+    <div class="chat-wrapper mt-3">
+        <div class="container clearfix">
+            <div class="people-list" id="people-list">
+                <div class="search">
+                    <input type="text" placeholder="search" />
+                    <i class="fa fa-search"></i>
+                </div>
+                <ul class="list">
 
-                        <li class="mb-3 {% if user == message.author %}text-right{% endif %}">
-                            <small class="text-muted">{{ message.created|date:"H:i:s m.d.Y" }}</small><br/>
-                            <small>{{ message.author }}</small><br />
-                            <i>{{ message.body }}</i>
-                        </li>
-                    {% endfor %}
+                    <li class="clearfix">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+                        <div class="about">
+                            <div class="name">Vincent Porter</div>
+                            <div class="status">
+                                <i class="fa fa-circle online"></i> online
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
-        </div>
 
-        <div>
-            <form method="post" action="{% url 'tutors:chatroom' chatroom_id=chatroom.id %}">
-                {% csrf_token %}
-                {{ message_form|crispy }}
-                <input type="submit" value="Send message" />
-            </form>
-        </div>
+            <div class="chat">
+                <div class="chat-header clearfix">
+{#                    <img src="{{ chatroom.members.first.avatar.url }}" alt="avatar" />#}
+                    <img class="rounded-circle" style="border:5px solid rgba(104,186,115,1);" src="{% thumbnail chatroom.members.first.avatar 60x60 %}" alt="avatar" />
 
-        <script>
-            let chat_wrapper = document.getElementById('chat-wrapper');
-            chat_wrapper.scrollTop = chat_wrapper.scrollHeight;
+                    <div class="chat-about">
+                        <div class="chat-with">Chat with {{ chatroom.members.first }}</div>
+                        <div class="chat-num-messages">already {{ chatroom.chatmessage_set.count }} messages</div>
+                    </div>
+                    <i class="fa fa-star"></i>
+                </div> <!-- end chat-header -->
+
+                <div class="chat-history">
+                    <ul>
+                        {% for message in chatroom.chatmessage_set.all %}
+                            <li class="clearfix">
+                                <div class="message-data {% if user == message.author %}align-right{% endif %}">
+                                    <span class="message-data-time" >{{ message.created|date:"H:i" }}, Today</span> &nbsp; &nbsp;
+                                    <span class="message-data-name" >{{ message.author.first_name }}</span> <i class="fa fa-circle me"></i>
+
+                                </div>
+                                <div class="message {% if user == message.author %}other-message{% endif %} float-right">
+                                    {{ message.body }}
+                                </div>
+                            </li>
+                        {% endfor %}
+
+{#                        <li>#}
+{#                            <div class="message-data">#}
+{#                                <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>#}
+{#                                <span class="message-data-time">10:31 AM, Today</span>#}
+{#                            </div>#}
+{#                            <i class="fa fa-circle online"></i>#}
+{#                            <i class="fa fa-circle online" style="color: #AED2A6"></i>#}
+{#                            <i class="fa fa-circle online" style="color:#DAE9DA"></i>#}
+{#                        </li>#}
+
+                    </ul>
+
+                </div> <!-- end chat-history -->
+
+                <div class="chat-message clearfix">
+                    <form method="post" action="{% url 'tutors:chatroom' chatroom_id=chatroom.id %}">
+                        {% csrf_token %}
+                        {{ message_form.body }}
+{#                        <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;#}
+{#                        <i class="fa fa-file-image-o"></i>#}
+                        <button type="submit">Send</button>
+                    </form>
+
+                </div> <!-- end chat-message -->
+
+            </div> <!-- end chat -->
+
+        </div> <!-- end container -->
+
+        <script id="message-template" type="text/x-handlebars-template">
+            <li class="clearfix">
+                <div class="message-data align-right">
+                    <span class="message-data-time" >{{time}}, Today</span> &nbsp; &nbsp;
+                    <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+                </div>
+                <div class="message other-message float-right">
+                    {{messageOutput}}
+                </div>
+            </li>
         </script>
 
+        <script id="message-response-template" type="text/x-handlebars-template">
+            <li>
+                <div class="message-data">
+                    <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                    <span class="message-data-time">{{time}}, Today</span>
+                </div>
+                <div class="message my-message">
+                    {{response}}
+                </div>
+            </li>
+        </script>
+
+        <script type="application/javascript" src="{% static 'js/chatroom.js' %}"></script>
+
+
     </div>
+
+
+
+{##}
+{#    <div class="container">#}
+{##}
+{##}
+{#        <div>#}
+{#            <form method="post" action="{% url 'tutors:chatroom' chatroom_id=chatroom.id %}">#}
+{#                {% csrf_token %}#}
+{#                {{ message_form|crispy }}#}
+{#                <input type="submit" value="Send message" />#}
+{#            </form>#}
+{#        </div>#}
+{##}
+{#        <script>#}
+{#            let chat_wrapper = document.getElementById('chat-wrapper');#}
+{#            chat_wrapper.scrollTop = chat_wrapper.scrollHeight;#}
+{#        </script>#}
+{##}
+{#    </div>#}
 {% endblock %}

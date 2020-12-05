@@ -4,32 +4,74 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from tutors.models import Tutor, ChatRoom, ChatMessage
+from tutors.forms.new_chat_form import NewChatForm
+from tutors.models import Tutor, ChatRoom, ChatMessage, JobRequest
 
 
 class MessageForm(ModelForm):
 
-    body = CharField(widget=Textarea(attrs={'rows': 4}))
+    body = CharField(widget=Textarea(attrs={'rows': 3, 'placeholder': 'Type your message'}))
 
     class Meta:
         model = ChatMessage
         fields = ('body',)
 
-def tutor_chat(request, tutor_id):
 
-    tutor = Tutor.objects.get(id=int(tutor_id))
+def get_chatroom(member1, member2):
+    tutor_user = member1
+    customer = member2
 
-    query = ChatRoom.objects.all().filter(members=tutor.user).filter(members=request.user)
+    query = ChatRoom.objects.all().filter(members=tutor_user).filter(members=customer)
 
     cnt = query.count()
 
     if not cnt:
         chatroom = ChatRoom()
         chatroom.save()
-        chatroom.members.add(request.user, tutor.user)
+        chatroom.members.add(customer, tutor_user)
         chatroom.save()
     else:
         chatroom = query.first()
+
+    return chatroom
+
+def tutor_chat(request, tutor_id):
+    tutor = Tutor.objects.get(id=int(tutor_id))
+
+    chatroom = get_chatroom(member1=tutor.user, member2=request.user)
+
+    if request.method == 'POST':
+        f = NewChatForm(request.POST, tutor=tutor)
+        if f.is_valid():
+            jr: JobRequest = JobRequest()
+            jr.author = request.user
+            jr.is_active = True
+            jr.is_public = f.cleaned_data.get('is_public')
+            jr.description = f.cleaned_data.get('description')
+            jr.save()
+
+            # Process many to many fields
+            jr.languages.set(f.cleaned_data.get('languages'))
+            jr.subjects.set(f.cleaned_data.get('subjects'))
+            jr.save()
+
+            chat_message = jr.build_description(recepient=tutor)
+
+            chat_message = ChatMessage.objects.create(
+                chatroom=chatroom,
+                author=request.user,
+                body=jr.build_description(recepient=tutor.user)
+            )
+            chat_message.save()
+            # ChatMessage({
+            #     'chatroom': chatroom.id,
+            #     'author': request.user,
+            #     'body': chat_message
+            # }).save()
+
+
+
+
 
     return HttpResponseRedirect(reverse('tutors:chatroom', kwargs={'chatroom_id': chatroom.id}))
 

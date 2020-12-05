@@ -4,6 +4,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.fields import GenericRelation, GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.validators import FileExtensionValidator
 from django.db import models
 
 # Create your models here.
@@ -78,7 +79,9 @@ class Tutor(models.Model):
     about = models.TextField(blank=True)
 
     video_profile_file = models.FileField(blank=True, upload_to='video_profiles')
-    video_profile_url = models.URLField(blank=True, verbose_name='Youtube or Vimeo Link')
+    video_profile_url = models.URLField(blank=True, verbose_name='Youtube Link (like https://www.youtube.com/embed/...xyz)')
+
+    pdf_attachment = models.FileField(blank=True, upload_to='pdf_attachments', validators=[FileExtensionValidator(['pdf'])])
 
     price = MoneyField(
         blank=True, decimal_places=2, default_currency='EUR', max_digits=1000000,
@@ -90,8 +93,8 @@ class Tutor(models.Model):
     languages = models.ManyToManyField(Language, blank=True)
     subjects = models.ManyToManyField(Subject, blank=True)
 
-    is_available = models.BooleanField(default=False, null=True)
-    is_approved = models.BooleanField(default=False, null=True)
+    is_available = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=False)
 
     def __str__(self):
         if self.user:
@@ -153,6 +156,20 @@ class JobRequest(models.Model):
 
     languages = models.ManyToManyField(Language, blank=True, related_name='language')
     subjects = models.ManyToManyField(Subject, blank=True)
+
+    is_active = models.BooleanField()
+    is_public = models.BooleanField()
+
+    def build_description(self, recepient):
+        description = f"Hi, {recepient}. My name is {self.author}. " \
+                      f"I'am interested in {', '.join([str(x) for x in self.subjects.all()])} " \
+                      f"with {', '.join([str(x) for x in self.languages.all()])}. " \
+                      f"Notes: {self.description}"
+
+        return description
+
+    def __str__(self):
+        return self.build_description(recepient='Somebody')
 
 
 class Course(models.Model):

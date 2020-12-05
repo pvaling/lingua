@@ -18,7 +18,7 @@
                         <li class="breadcrumb-item"><a href="{% url 'tutors:index' %}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'tutors:tutors_list' %}">All Tutors</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'tutors:detail' tutor_id=user.tutor.id %}">{{ user.tutor }}</a></li>
-                        <li class="breadcrumb-item"><a href="{% url 'tutors:tutor_profile' %}">Profile Edit</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tutors:workspace_tutor_profile_edit' %}">Profile Edit</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Manage Gallery</li>
                     </ol>
                 </nav>

@@ -65,7 +65,7 @@
                 <p>
                     <a href="{% url 'tutors:tutors_list' %}" class="btn btn-primary my-2">Find a Tutor</a>
                     {% if user.is_tutor %}
-                        <a href="{% url 'tutors:tutor_profile' %}" class="btn btn-secondary my-2">Edit my Tutor Profile</a>
+                        <a href="{% url 'tutors:workspace_tutor_profile_edit' %}" class="btn btn-secondary my-2">Edit my Tutor Profile</a>
                     {% else %}
                         <a href="{% url 'tutors:register_tutor' %}" class="btn btn-secondary my-2">Become a Tutor</a>
                     {% endif %}

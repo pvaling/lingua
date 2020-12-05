@@ -7,7 +7,8 @@ from .views.tutors_list import tutors_list
 from .views.detail import detail
 from .views.index import index
 from .views.register import register_tutor
-from .views.workspace import workspace_index, workspace_settings, workspace_tutor_profile_edit
+from .views.workspace import workspace_index, workspace_settings, workspace_tutor_profile_edit, \
+    OrderList, OrderDetailView, OrderDelete
 
 app_name = 'tutors'
 
@@ -25,5 +26,8 @@ urlpatterns = [
     path('tutors/list', tutors_list, name='tutors_list'),
     path('workspace', workspace_index, name='workspace_index'),
     path('workspace/settings', workspace_settings, name='workspace_settings'),
+    path('workspace/orders_list', OrderList.as_view(), name='workspace_orders_list'),
+    path('workspace/order/<int:pk>', OrderDetailView.as_view(), name='workspace_order_detail'),
+    path('workspace/order/<int:pk>/delete', OrderDelete.as_view(), name='workspace_order_delete'),
     path('workspace/tutor_profile_edit', workspace_tutor_profile_edit, name='workspace_tutor_profile_edit'),
 ]

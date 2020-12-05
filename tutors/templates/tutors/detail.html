@@ -1,6 +1,8 @@
 {% extends 'tutors/base.html' %}
 
 {% load cropping %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 
 {% block body %}
@@ -37,31 +39,70 @@
                         Experience: {{ tutor.experience_years }} year{{ tutor.experience_years|pluralize }}
                     </div>
                 </div>
-                <div class="row">
+                {% if tutor.galleryitem_set.count %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Gallery</h4>
+                            {% for gallery_item in tutor.galleryitem_set.all %}
+                                <img width="50px" src="{{ gallery_item.image.url }}" alt="">
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row mt-3">
                     <div class="col-md-12">
-                        <h4>Gallery</h4>
-                        {% for gallery_item in tutor.galleryitem_set.all %}
-                            <img width="50px" src="{{ gallery_item.image.url }}" alt="">
-                        {% endfor %}
+                        <a class="btn btn-primary" href="{% url 'tutors:tutor_chat' tutor_id=tutor.id %}">
+                            Chat with {{ tutor.user.first_name }}
+                        </a>
                     </div>
                 </div>
 
             </div>
-            <div class="col-md-7 offset-md-1">
+            <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="{% url 'tutors:tutor_chat' tutor_id=tutor.id %}" method="post">
+                                    {% csrf_token %}
+                                    {{ chat_form|crispy }}
+                                    <input class="btn btn-success" type="submit" value="Send request">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
                         <h1>{{ tutor.user.first_name }} {{ tutor.user.last_name }}</h1>
                     </div>
+                    {% if tutor.user == user %}
+                        <div class="col-md-4">
+                            <a class="btn btn-warning" href="{% url 'tutors:workspace_tutor_profile_edit' %}"><i class="fa fa-pencil"></i> Edit my Profile</a>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="row">
                     <div class="col-md-11">
                         <h4>About me</h4>
-                        <div class="div">
-                            {{ tutor.about }}
+                        <div class="div mb-5">
+                            <p>
+                                {{ tutor.about }}
+                            </p>
                         </div>
                         {% if tutor.video_profile_file %}
+                            <div class="div mt-3">
+                                <video controls="controls" width="100%" src="{{ tutor.video_profile_file.url }}"></video>
+                            </div>
+                        {% endif %}
+                        {% if tutor.video_profile_url %}
                             <div class="div">
-                                <video controls="controls" width="300px" src="{{ tutor.video_profile_file.url }}"></video>
+                                {% include 'tutors/components/youtube_embed.html' with youtube_link=tutor.video_profile_url %}
+                            </div>
+                        {% endif %}
+                        {% if tutor.pdf_attachment %}
+                            <div class="div">
+                                <iframe width="100%" height="400px" src="{{ tutor.pdf_attachment.url }}" frameborder="0"></iframe>
                             </div>
                         {% endif %}
                     </div>
@@ -90,16 +131,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <a class="btn btn-primary" href="{% url 'tutors:tutor_chat' tutor_id=tutor.id %}">
-                            Chat with {{ tutor.user.first_name }}
-                        </a>
-                        {% if tutor.user == user %}
-                            <a class="btn btn-danger" href="{% url 'tutors:workspace_tutor_profile_edit' %}">Edit my Profile</a>
-                        {% endif %}
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -107,4 +138,4 @@
 
 {% endblock %}
 
-{% block footer %}{% endblock %}
+{#{% block footer %}{% endblock %}#}

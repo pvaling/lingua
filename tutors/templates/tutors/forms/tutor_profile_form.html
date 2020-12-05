@@ -1,6 +1,6 @@
 {% load crispy_forms_tags %}
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-9">
         <a href="{% url 'tutors:tutor_profile_avatar' %}">Manage avatar photo</a> <br />
         <a href="{% url 'tutors:tutor_profile_gallery' %}">Manage gallery</a>
         <form action="{% url 'tutors:workspace_tutor_profile_edit' %}" method="post" enctype="multipart/form-data">
@@ -9,7 +9,7 @@
             <input type="submit" class="btn btn-success" value="Save">
         </form>
     </div>
-    <div class="col-md-2">
-        <a href="{% url 'tutors:detail' user.tutor.id %}">Preview Profile</a>
+    <div class="col-md-3">
+        <a href="{% url 'tutors:detail' user.tutor.id %}"><i class="fa fa-eye"></i>  Preview Profile</a>
     </div>
 </div>
